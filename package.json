@@ -12,6 +12,9 @@
     "type": "git",
     "url": "git@github.com:legiao/promisify.git"
   },
+  "engines": {
+    "node": ">=8"
+  },
   "author": "Tiago de Assis Gonçalves <contato@tiagogoncalves.com.br>",
   "license": "WTFPL",
   "private": true,
