@@ -8,6 +8,10 @@
     "test": "mocha app/**/*.spec.js",
     "test:watch": "mocha -w app/**/*.spec.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:legiao/promisify.git"
+  },
   "author": "Tiago de Assis Gonçalves <contato@tiagogoncalves.com.br>",
   "license": "WTFPL",
   "private": true,
