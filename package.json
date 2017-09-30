@@ -1,0 +1,20 @@
+{
+  "name": "promisify",
+  "version": "1.0.0",
+  "description": "Simple implementation of promisify",
+  "main": "app/index.js",
+  "scripts": {
+    "pretest": "standard app",
+    "test": "mocha app/**/*.spec.js",
+    "test:watch": "mocha -w app/**/*.spec.js"
+  },
+  "author": "Tiago de Assis Gonçalves <contato@tiagogoncalves.com.br>",
+  "license": "WTFPL",
+  "private": true,
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^3.5.3",
+    "standard": "^10.0.3"
+  }
+}
