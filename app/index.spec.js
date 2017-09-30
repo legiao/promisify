@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs')
 const promisify = require('./index')
 const chai = require('chai')
 chai.use(require('chai-as-promised'))
@@ -101,6 +102,18 @@ describe('Promisify', () => {
 
         // then
         return expect(promise).to.eventually.equal(3)
+      })
+
+      it('must work with fs.readdir', () => {
+        // given
+        const expectedResult = fs.readdirSync('.')
+
+        // when
+        const readdirAsync = promisify(fs.readdir)
+        const promise = readdirAsync('.')
+
+        // then
+        return expect(promise).to.eventually.deep.equal(expectedResult)
       })
     })
 
