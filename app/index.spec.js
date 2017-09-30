@@ -13,10 +13,10 @@ describe('Promisify', () => {
       const fn = null
 
       // when
-      const result = () => promisify(fn)
+      const promisified = () => promisify(fn)
 
       // then
-      expect(result).to.throw()
+      expect(promisified).to.throw()
     })
 
     it('when I pass a object', () => {
@@ -24,10 +24,10 @@ describe('Promisify', () => {
       const fn = {}
 
       // when
-      const result = () => promisify(fn)
+      const promisified = () => promisify(fn)
 
       // then
-      expect(result).to.throw()
+      expect(promisified).to.throw()
     })
 
     it('when I pass a number', () => {
@@ -35,10 +35,10 @@ describe('Promisify', () => {
       const fn = 1
 
       // when
-      const result = () => promisify(fn)
+      const promisified = () => promisify(fn)
 
       // then
-      expect(result).to.throw()
+      expect(promisified).to.throw()
     })
 
     it('when I pass a string', () => {
@@ -46,10 +46,10 @@ describe('Promisify', () => {
       const fn = 'hello'
 
       // when
-      const result = () => promisify(fn)
+      const promisified = () => promisify(fn)
 
       // then
-      expect(result).to.throw()
+      expect(promisified).to.throw()
     })
   })
 
@@ -58,10 +58,10 @@ describe('Promisify', () => {
     const fn = () => (null)
 
     // when
-    const result = () => promisify(fn)
+    const promisified = () => promisify(fn)
 
     // then
-    expect(result).to.be.a('function')
+    expect(promisified).to.be.a('function')
   })
 
   describe('when I call the promisified function', () => {
@@ -71,8 +71,8 @@ describe('Promisify', () => {
         const fn = () => (null)
 
         // when
-        const result = promisify(fn)
-        const promise = result()
+        const promisified = promisify(fn)
+        const promise = promisified()
 
         // then
         expect(promise).to.be.a('promise')
@@ -80,40 +80,40 @@ describe('Promisify', () => {
     })
 
     describe('with success function callback', () => {
-      it('must returns a fulfilled promise', () => {
+      it('must returns a fulfilled promise', async () => {
         // given
         const fn = (cb) => (cb(null, true))
 
         // when
-        const result = promisify(fn)
-        const promise = result()
+        const promisified = promisify(fn)
+        const result = await promisified()
 
         // then
-        return expect(promise).to.eventually.equal(true)
+        return expect(result).to.equal(true)
       })
 
-      it('must returns a fulfilled promise with the correct result', () => {
+      it('must returns a fulfilled promise with the correct result', async () => {
         // given
         const fn = (p1, p2, cb) => (cb(null, p1 + p2))
 
         // when
-        const result = promisify(fn)
-        const promise = result(1, 2)
+        const promisified = promisify(fn)
+        const result = await promisified(1, 2)
 
         // then
-        return expect(promise).to.eventually.equal(3)
+        return expect(result).to.equal(3)
       })
 
-      it('must work with fs.readdir', () => {
+      it('must work with fs.readdir', async () => {
         // given
         const expectedResult = fs.readdirSync('.')
 
         // when
         const readdirAsync = promisify(fs.readdir)
-        const promise = readdirAsync('.')
+        const result = await readdirAsync('.')
 
         // then
-        return expect(promise).to.eventually.deep.equal(expectedResult)
+        expect(result).to.deep.equal(expectedResult)
       })
     })
 
@@ -123,8 +123,8 @@ describe('Promisify', () => {
         const fn = (cb) => (cb(new Error()))
 
         // when
-        const result = promisify(fn)
-        const promise = result()
+        const promisified = promisify(fn)
+        const promise = promisified()
 
         // then
         return expect(promise).to.be.rejectedWith(Error)
